@@ -9,7 +9,7 @@
 
 # Global Declarations
 declare -r SCRIPT="${0##*/}"
-cmd_list='mail' # Reference Commands
+cmd_list='mail printf' # Reference Commands
 path="<Path of this file>"
 email="<Yourmail Address>"
 
@@ -30,9 +30,5 @@ for cmd in ${cmd_list}; do   # Verify that referenced commands exist on the syst
   cmd_exists "$cmd"
 done
 
-#run speedtest python SCRIPT
-SP='speedtest.py --simple --share'
-$SP
-
  ### Create Email function
-#  echo "${SCRIPT}: You're speed results are /r $SP`" | mail -s "Your Home Network Speed Test" $email
+  printf "${SCRIPT}: You're speed results are \n\n `speedtest.py --simple --share`" | mail -s "Your Home Network Speed Test" $email
