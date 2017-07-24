@@ -11,7 +11,7 @@
 # Global Declarations
 declare -r SCRIPT="${0##*/}"
 cmd_list='osascript curl diff mv grep touch' # Reference Commands
-path="/Users/octavis/scripts/site_test/"
+path="<Path of this file>/site_test/"
 title="Website Update"
 
 
