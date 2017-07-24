@@ -13,7 +13,7 @@ prefix="plexmediaserver-"
 suffix=".x86_64.rpm"
 
 #get input from user and strip front&rear
-read -p "Which version do you wish to install? "string
+read -p "Which version do you wish to install? " string
 string=${string#$prefix}
 version=${string%$suffix}
 
