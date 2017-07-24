@@ -9,7 +9,13 @@
 # Global Declarations
 declare -r SCRIPT="${0##*/}"
 cmd_list='rpm curl systemctl rm' # Reference Commands
-version="1.7.2.3878-8088811b8" # Version to upgrade to
+prefix="plexmediaserver-"
+suffix=".x86_64.rpm"
+
+#get input from user and strip front&rear
+read -p "Which version do you wish to install? "string
+string=${string#$prefix}
+version=${string%$suffix}
 
 cmd_exists() {  # Function to check if referenced command exists
   if [ $# -eq 0 ]; then
