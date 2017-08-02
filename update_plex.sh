@@ -42,7 +42,7 @@ done
  sudo rpm -Uvh plexmediaserver-"$version".x86_64.rpm
 
 #restart the PLEX service
- systemctl start plexmediaserver.service
+ sudo systemctl start plexmediaserver.service
 
 #cleanup/remove installer
  rm plexmediaserver-"$version".x86_64.rpm
