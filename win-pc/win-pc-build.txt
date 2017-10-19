@@ -1,0 +1,39 @@
+SettingUp Personal Windows Work Box
+
+> Setup subsystem
+	Open PowerShell as Administrator and run:    "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux"
+    Restart your computer when prompted.
+> Install
+	MS Office
+	Slack
+		> https://slack.com/downloads/windows
+	notepad++
+		> https://notepad-plus-plus.org/download/v7.5.1.html
+	Lanuchy 
+		> https://www.launchy.net/
+	CMDER 
+		> http://cmder.net/
+			> Install Ubuntu & update
+				$ bash 
+				$ apt-get update
+				$ apt-get upgrade
+				$ apt-get install zsh git-core
+				$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+				$ chsh -s `which zsh`
+				$ cd ~/.oh-my-zsh/custom/themes
+				$ curl -O https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme
+				$ vim ~/.zshrc
+					ZSH_THEME="bullet-train"
+			> Update alias' 
+				$ vim ~/.zshrc
+			> Copy over ConEmu.xml
+	Firefox 
+		> https://getfirefox.com
+		> Copy Bookmarks
+	Git for windows
+		> https://git-for-windows.github.io/
+	1Password Standalone
+		> https://1password.com/downloads/
+	Remote Desktop Manager
+		> https://www.microsoft.com/en-us/download/details.aspx?id=44989
+		> Copy over .rdg files
