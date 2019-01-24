@@ -34,7 +34,7 @@ fi
 if pgrep '[S]lack'; then
     pkill Slack*
     slackOn='yes'
-if
+fi
 
 #find if slack is still running
 if pgrep '[S]lack'; then
