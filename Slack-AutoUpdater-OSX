@@ -8,7 +8,7 @@
 consoleuser=$(ls -l /dev/console | cut -d " " -f4)
 
 APP_NAME="Slack.app"
-APP_PATH="/Applications/$APP_NAME"
+APP_PATH="/Users/$consoleuser/Applications/$APP_NAME"
 APP_VERSION_KEY="CFBundleShortVersionString"
 
 
@@ -25,7 +25,7 @@ currentSlackVersion=$(/usr/bin/curl -s 'https://downloads.slack-edge.com/mac_rel
 if [ -d "$APP_PATH" ]; then
     localSlackVersion=$(defaults read "$APP_PATH/Contents/Info.plist" "$APP_VERSION_KEY")
     if [ "$currentSlackVersion" = "$localSlackVersion" ]; then
-        printf "Slack is already up-to-date. Version: %s" "$localSlackVersion"
+        printf "Slack is already up-to-date. Version: %s" "$localSlackVersion\n"
         exit 0
     fi
 fi
@@ -33,6 +33,7 @@ fi
 #find if slack is running
 if pgrep '[S]lack'; then
     pkill Slack*
+    printf "Attempt to close Slack.\n"
     slackOn='yes'
 fi
 
@@ -42,8 +43,9 @@ if pgrep '[S]lack'; then
     exit 409
 else
     # Remove the existing Application
+    rm -rf /Users/$consoleuser/Applications/Slack.app
     rm -rf /Applications/Slack.app
-
+    
     #downloads latest version of Slack
     curl -L -o "$slackDmgPath" "$finalDownloadUrl"
 
@@ -51,7 +53,7 @@ else
     hdiutil attach -nobrowse $slackDmgPath
 
     #Copy the update app into applications folder
-    sudo cp -R /Volumes/Slack*/Slack.app /Applications
+    sudo cp -R /Volumes/Slack*/Slack.app /Users/$consoleuser/Applications
 
     #unmount and eject dmg
     mountName=$(diskutil list | grep Slack | awk '{ print $3 }')
@@ -62,13 +64,13 @@ else
     rm -rf "$slackDmgPath"
 
     # Slack permissions are really dumb
-    chown -R $consoleuser:staff "/Applications/Slack.app"
+    chown -R $consoleuser $APP_PATH
 
     localSlackVersion=$(defaults read "$APP_PATH/Contents/Info.plist" "$APP_VERSION_KEY")
         if [ "$currentSlackVersion" = "$localSlackVersion" ]; then
-            printf "Slack is now updated/installed. Version: %s" "$localSlackVersion"
+            printf "Slack is now updated/installed. Version: %s" "$localSlackVersion\n"
         else
-            printf "Slack didn't update to the lastest version. Installed Version is %s" "$localSlackVersion"
+            printf "Slack didn't update to the lastest version. Installed Version is %s" "$localSlackVersion\n"
             exit 409
         fi
     fi
@@ -77,8 +79,12 @@ else
     if [ "$slackOn" == "" ] ; then
         exit 0
     else
-        su - "${consoleuser}" -c 'open -a /Applications/Slack.app'
+        su - "${consoleuser}" -c 'open -a /Users/$consoleuser/Applications/Slack.app'
     fi
+
+    #Create SymLink for file in Applications Easy for users to find.
+    ln -s $APP_PATH /Applications/Slack.app
+    
 
     exit 0
 fi
