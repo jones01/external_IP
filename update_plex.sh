@@ -36,7 +36,7 @@ done
 
 
 #download plex version listed above
- curl -o plexmediaserver-"$version".x86_64.rpm 'https://downloads.plex.tv/plex-media-server/'$version'/plexmediaserver-'$version'.x86_64.rpm'
+ curl -o plexmediaserver-"$version".x86_64.rpm 'https://downloads.plex.tv/plex-media-server-new/'$version'/redhat/plexmediaserver-'$version'.x86_64.rpm'
 
 #install new Plex version
  sudo rpm -Uvh plexmediaserver-"$version".x86_64.rpm
