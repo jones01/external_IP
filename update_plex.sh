@@ -13,7 +13,7 @@ prefix="plexmediaserver-"
 suffix=".x86_64.rpm"
 
 #get input from user and strip front&rear
-read -p "Which version do you wish to install? " string
+read -p "Name the file for download: " string
 string=${string#$prefix}
 version=${string%$suffix}
 
@@ -36,15 +36,15 @@ done
 
 
 #download plex version listed above
- curl -o plexmediaserver-"$version".x86_64.rpm 'https://downloads.plex.tv/plex-media-server-new/'$version'/redhat/plexmediaserver-'$version'.x86_64.rpm'
+ curl -o plexmediaserver-"$version" 'https://plex.tv/downloads/latest/5?channel=8&build=linux-x86_64&distro=redhat'
 
 #install new Plex version
- sudo rpm -Uvh plexmediaserver-"$version".x86_64.rpm
+ sudo rpm -Uvh plexmediaserver-"$version"
 
 #restart the PLEX service
  sudo systemctl start plexmediaserver.service
 
 #cleanup/remove installer
- rm plexmediaserver-"$version".x86_64.rpm
+ rm plexmediaserver-"$version"
 
 echo " === Complete ==== "
