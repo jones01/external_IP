@@ -9,13 +9,8 @@
 # Global Declarations
 declare -r SCRIPT="${0##*/}"
 cmd_list='rpm curl systemctl rm' # Reference Commands
-prefix="plexmediaserver-"
-suffix=".x86_64.rpm"
 
-#get input from user and strip front&rear
-read -p "Name the file for download: " string
-string=${string#$prefix}
-version=${string%$suffix}
+plextoken=${1}
 
 cmd_exists() {  # Function to check if referenced command exists
   if [ $# -eq 0 ]; then
@@ -34,17 +29,16 @@ for cmd in ${cmd_list}; do   # Verify that referenced commands exist on the syst
 done
 ##################
 
-
 #download plex version listed above
- curl -o plexmediaserver-"$version" 'https://plex.tv/downloads/latest/5?channel=8&build=linux-x86_64&distro=redhat'
+curl -L -o plexmediaserver-plexpass-latest "https://plex.tv/downloads/latest/5?channel=8&build=linux-x86_64&distro=redhat&X-Plex-Token=${plextoken}"
 
 #install new Plex version
- sudo rpm -Uvh plexmediaserver-"$version"
+sudo rpm -Uvh plexmediaserver-plexpass-latest
 
 #restart the PLEX service
- sudo systemctl start plexmediaserver.service
+sudo systemctl start plexmediaserver.service
 
 #cleanup/remove installer
- rm plexmediaserver-"$version"
+rm plexmediaserver-plexpass-latest
 
 echo " === Complete ==== "
