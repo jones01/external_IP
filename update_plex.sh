@@ -28,9 +28,13 @@ for cmd in ${cmd_list}; do   # Verify that referenced commands exist on the syst
   cmd_exists "$cmd"
 done
 ##################
-
-#download plex version listed above
+# Uncomment the version of plex you have access to Reugular or Plex Pass
+# Download Plex from PlexPass channel
 curl -L -o plexmediaserver-plexpass-latest "https://plex.tv/downloads/latest/5?channel=8&build=linux-x86_64&distro=redhat&X-Plex-Token=${plextoken}"
+# Download Plex from regular channel
+#curl -L -o plexmediaserver-plexpass-latest "https://plex.tv/downloads/latest/5?channel=16&build=linux-x86_64&distro=redhat&X-Plex-Token=${plextoken}"
+
+
 
 #install new Plex version
 sudo rpm -Uvh plexmediaserver-plexpass-latest
